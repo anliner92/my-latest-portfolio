@@ -2,66 +2,129 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, Star } from "lucide-react";
 
 export default function Hero() {
   const [isVisible, setIsVisible] = useState(false);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
     setIsVisible(true);
+    
+    const handleMouseMove = (e: MouseEvent) => {
+      setMousePosition({
+        x: (e.clientX / window.innerWidth) * 100,
+        y: (e.clientY / window.innerHeight) * 100,
+      });
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
   return (
     <section className="min-h-screen flex items-center justify-center relative overflow-hidden pt-16">
-      {/* Gradient background */}
-      <div className="absolute inset-0 -z-10">
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-accent/20 rounded-full blur-3xl opacity-50 animate-pulse" />
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-primary/20 rounded-full blur-3xl opacity-50 animate-pulse" />
+      {/* Animated gradient background with parallax effect */}
+      <div className="absolute inset-0 -z-10 overflow-hidden">
+        <div 
+          className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-blue-500/30 rounded-full blur-[120px] opacity-60 animate-orb-float"
+          style={{
+            transform: `translate(${mousePosition.x * 0.02}px, ${mousePosition.y * 0.02}px)`,
+          }}
+        />
+        <div 
+          className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-purple-500/30 rounded-full blur-[120px] opacity-60 animate-orb-float"
+          style={{
+            animationDelay: "2s",
+            transform: `translate(${mousePosition.x * -0.02}px, ${mousePosition.y * -0.02}px)`,
+          }}
+        />
+        <div 
+          className="absolute top-1/2 left-1/2 w-[400px] h-[400px] bg-pink-500/20 rounded-full blur-[100px] opacity-50 animate-orb-float"
+          style={{
+            animationDelay: "4s",
+            transform: `translate(${mousePosition.x * 0.015}px, ${mousePosition.y * 0.015}px)`,
+          }}
+        />
+        
+        {/* Grid pattern overlay */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]" />
       </div>
 
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
         <div
-          className={`transition-all duration-1000 transform ${
+          className={`transition-all duration-1000 ease-out transform ${
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
           }`}
         >
-          <p className="text-accent text-lg font-semibold mb-4 tracking-wide">
-            Welcome to my portfolio
-          </p>
-          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-foreground mb-6 leading-tight">
-            Frontend Developer
+          {/* Badge */}
+          <div
+            className={`inline-flex items-center gap-2 px-4 py-2 rounded-full glass mb-6 transition-all duration-1000 delay-200 ${
+              isVisible ? "opacity-100 scale-100" : "opacity-0 scale-90"
+            }`}
+          >
+            <Star className="w-4 h-4 text-blue-500 animate-pulse fill-blue-500" />
+            <p className="text-sm font-medium text-foreground/80">
+              Welcome to my portfolio
+            </p>
+          </div>
+
+          {/* Main heading with gradient text */}
+          <h1 className="text-6xl sm:text-7xl lg:text-8xl font-bold mb-6 leading-tight">
+            <span className="block text-gradient-animate">
+              Frontend Developer
+            </span>
+            <span className="block text-4xl sm:text-5xl lg:text-6xl mt-2 text-foreground/70 font-normal">
+              Crafting Digital Experiences
+            </span>
           </h1>
-          <p className="text-xl text-foreground/70 mb-12 max-w-2xl mx-auto leading-relaxed">
+
+          {/* Description */}
+          <p
+            className={`text-xl sm:text-2xl text-foreground/70 mb-12 max-w-3xl mx-auto leading-relaxed transition-all duration-1000 delay-300 ${
+              isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"
+            }`}
+          >
             I build fast, engaging, and intuitive web experiences. Over the past
             8 years, I've honed my skills in React, Next.js, Gatsby, and
             TypeScript to transform complex problems into elegant digital
             solutions.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
+          {/* CTA Buttons */}
+          <div
+            className={`flex flex-col sm:flex-row gap-4 justify-center mb-16 transition-all duration-1000 delay-500 ${
+              isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"
+            }`}
+          >
             <Link
               href="#projects"
-              className="px-8 py-3 bg-accent text-accent-foreground rounded-lg font-semibold hover:bg-accent/90 transition-all duration-300 transform hover:scale-105"
+              className="group relative px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl font-semibold overflow-hidden transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/50"
             >
-              View My Work
+              <span className="relative z-10 flex items-center justify-center gap-2">
+                View My Work
+                <ChevronDown className="w-4 h-4 group-hover:translate-y-1 transition-transform" />
+              </span>
+              <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </Link>
             <Link
               href="#contact"
-              className="px-8 py-3 border-2 border-accent text-accent rounded-lg font-semibold hover:bg-accent/10 transition-all duration-300"
+              className="px-8 py-4 border-2 border-blue-500/50 text-blue-500 dark:text-blue-400 rounded-xl font-semibold hover:bg-blue-500/10 hover:border-blue-500 transition-all duration-300 transform hover:scale-105 backdrop-blur-sm glass"
             >
               Get in Touch
             </Link>
           </div>
         </div>
 
-        {/* Scroll indicator */}
+        {/* Scroll indicator with animation */}
         <div
-          className={`transition-all duration-1000 delay-500 ${
+          className={`transition-all duration-1000 delay-700 ${
             isVisible ? "opacity-100" : "opacity-0"
           }`}
         >
-          <div className="flex justify-center animate-bounce">
-            <ChevronDown className="w-6 h-6 text-accent" />
+          <div className="flex flex-col items-center gap-2 animate-float">
+            <span className="text-sm text-foreground/60 font-medium">Scroll</span>
+            <ChevronDown className="w-6 h-6 text-blue-500 animate-bounce" />
           </div>
         </div>
       </div>

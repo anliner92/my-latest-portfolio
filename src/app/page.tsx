@@ -9,13 +9,24 @@ import Contact from "../../components/Contact";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 dark:from-slate-900 dark:via-slate-800 dark:to-indigo-900">
-      <Navigation />
-      <Hero />
-      <About />
-      <Skills />
-      <Projects />
-      <Contact />
-    </div>
+    <>
+      {/* Base background layer - ensures solid white/black background */}
+      <div className="fixed inset-0 bg-white dark:bg-black transition-colors duration-300 -z-30" />
+      
+      <div className="min-h-screen relative">
+        {/* Animated background gradient - Light mode */}
+        <div className="fixed inset-0 -z-20 bg-gradient-to-br from-slate-50 via-blue-50/30 to-indigo-50/50 transition-opacity duration-300 animate-gradient dark:opacity-0" />
+        
+        {/* Animated background gradient - Dark mode */}
+        <div className="fixed inset-0 -z-20 bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950 transition-opacity duration-300 animate-gradient opacity-0 dark:opacity-100" />
+        
+        <Navigation />
+        <Hero />
+        <About />
+        <Skills />
+        <Projects />
+        <Contact />
+      </div>
+    </>
   );
 }
