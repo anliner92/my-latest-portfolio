@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { MapPin, Briefcase, CheckCircle2 } from "lucide-react";
+import { motion } from "motion/react";
 
 export default function About() {
   const ref = useRef<HTMLElement>(null);
@@ -43,13 +44,18 @@ export default function About() {
       </div>
 
       <div className="max-w-6xl mx-auto">
-        <div
-          className={`transition-all duration-1000 ease-out ${
-            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-          }`}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
         >
           {/* Section Header */}
-          <div className="text-center mb-16">
+          <motion.div
+            className="text-center mb-16"
+            initial={{ opacity: 0, y: 10 }}
+            animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+          >
             <span className="inline-block px-4 py-2 rounded-full glass text-sm font-medium text-blue-600 dark:text-blue-400 mb-4">
               About Me
             </span>
@@ -60,14 +66,15 @@ export default function About() {
               </span>
             </h2>
             <div className="w-24 h-1 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full mx-auto" />
-          </div>
+          </motion.div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             {/* Content */}
-            <div
-              className={`space-y-6 transition-all duration-1000 delay-200 ${
-                isVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-10"
-              }`}
+            <motion.div
+              className="space-y-6"
+              initial={{ opacity: 0, x: -30 }}
+              animate={isVisible ? { opacity: 1, x: 0 } : { opacity: 0, x: -30 }}
+              transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
             >
               <p className="text-xl text-foreground/80 leading-relaxed">
                 A passionate frontend developer with 8 years of experience
@@ -87,16 +94,12 @@ export default function About() {
                 {details.map((detail, index) => {
                   const Icon = detail.icon;
                   return (
-                    <div
+                    <motion.div
                       key={detail.label}
-                      className={`group p-4 rounded-xl glass border border-border/50 hover:border-blue-500/50 transition-all duration-300 modern-card ${
-                        isVisible
-                          ? "opacity-100 translate-y-0"
-                          : "opacity-0 translate-y-5"
-                      }`}
-                      style={{
-                        transitionDelay: isVisible ? `${300 + index * 100}ms` : "0ms",
-                      }}
+                      className="group p-4 rounded-xl glass border border-border/50 hover:border-blue-500/50 transition-all duration-300 modern-card"
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                      transition={{ duration: 0.6, delay: 0.3 + index * 0.1, ease: "easeOut" }}
                     >
                       <div className="flex items-center gap-4">
                         <div className="p-3 rounded-lg bg-gradient-to-br from-blue-500/20 to-purple-500/20 group-hover:scale-110 transition-transform duration-300">
@@ -111,17 +114,18 @@ export default function About() {
                           </p>
                         </div>
                       </div>
-                    </div>
+                    </motion.div>
                   );
                 })}
               </div>
-            </div>
+            </motion.div>
 
             {/* Image/Visual */}
-            <div
-              className={`relative transition-all duration-1000 delay-300 ${
-                isVisible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-10"
-              }`}
+            <motion.div
+              className="relative"
+              initial={{ opacity: 0, x: 30 }}
+              animate={isVisible ? { opacity: 1, x: 0 } : { opacity: 0, x: 30 }}
+              transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
             >
               <div className="relative group">
                 {/* Glow effect */}
@@ -152,9 +156,9 @@ export default function About() {
                 <div className="absolute -top-4 -right-4 w-20 h-20 bg-blue-500/30 rounded-full blur-xl animate-float" />
                 <div className="absolute -bottom-4 -left-4 w-16 h-16 bg-purple-500/30 rounded-full blur-xl animate-float" style={{ animationDelay: "1s" }} />
               </div>
-            </div>
+            </motion.div>
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

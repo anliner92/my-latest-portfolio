@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { ChevronDown, Star } from "lucide-react";
+import { motion } from "motion/react";
 
 export default function Hero() {
   const [isVisible, setIsVisible] = useState(false);
@@ -52,50 +53,58 @@ export default function Hero() {
       </div>
 
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-        <div
-          className={`transition-all duration-1000 ease-out transform ${
-            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-          }`}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
         >
           {/* Badge */}
-          <div
-            className={`inline-flex items-center gap-2 px-4 py-2 rounded-full glass mb-6 transition-all duration-1000 delay-200 ${
-              isVisible ? "opacity-100 scale-100" : "opacity-0 scale-90"
-            }`}
+          <motion.div
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass mb-6"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={isVisible ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
+            transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
           >
             <Star className="w-4 h-4 text-blue-500 animate-pulse fill-blue-500" />
             <p className="text-sm font-medium text-foreground/80">
               Welcome to my portfolio
             </p>
-          </div>
+          </motion.div>
 
           {/* Main heading with gradient text */}
-          <h1 className="text-6xl sm:text-7xl lg:text-8xl font-bold mb-6 leading-tight">
+          <motion.h1
+            className="text-6xl sm:text-7xl lg:text-8xl font-bold mb-6 leading-tight"
+            initial={{ opacity: 0, y: 30 }}
+            animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+            transition={{ duration: 0.8, delay: 0.1, ease: "easeOut" }}
+          >
             <span className="block text-gradient-animate">
               Frontend Developer
             </span>
             <span className="block text-4xl sm:text-5xl lg:text-6xl mt-2 text-foreground/70 font-normal">
               Crafting Digital Experiences
             </span>
-          </h1>
+          </motion.h1>
 
           {/* Description */}
-          <p
-            className={`text-xl sm:text-2xl text-foreground/70 mb-12 max-w-3xl mx-auto leading-relaxed transition-all duration-1000 delay-300 ${
-              isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"
-            }`}
+          <motion.p
+            className="text-xl sm:text-2xl text-foreground/70 mb-12 max-w-3xl mx-auto leading-relaxed"
+            initial={{ opacity: 0, y: 20 }}
+            animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
           >
             I build fast, engaging, and intuitive web experiences. Over the past
             8 years, I've honed my skills in React, Next.js, Gatsby, and
             TypeScript to transform complex problems into elegant digital
             solutions.
-          </p>
+          </motion.p>
 
           {/* CTA Buttons */}
-          <div
-            className={`flex flex-col sm:flex-row gap-4 justify-center mb-16 transition-all duration-1000 delay-500 ${
-              isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"
-            }`}
+          <motion.div
+            className="flex flex-col sm:flex-row gap-4 justify-center mb-16"
+            initial={{ opacity: 0, y: 20 }}
+            animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            transition={{ duration: 0.8, delay: 0.5, ease: "easeOut" }}
           >
             <Link
               href="#projects"
@@ -113,20 +122,20 @@ export default function Hero() {
             >
               Get in Touch
             </Link>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
         {/* Scroll indicator with animation */}
-        <div
-          className={`transition-all duration-1000 delay-700 ${
-            isVisible ? "opacity-100" : "opacity-0"
-          }`}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={isVisible ? { opacity: 1 } : { opacity: 0 }}
+          transition={{ duration: 0.8, delay: 0.7, ease: "easeOut" }}
         >
           <div className="flex flex-col items-center gap-2 animate-float">
             <span className="text-sm text-foreground/60 font-medium">Scroll</span>
             <ChevronDown className="w-6 h-6 text-blue-500 animate-bounce" />
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Code2, Wrench, Palette, Zap } from "lucide-react";
+import { motion } from "motion/react";
 
 const skillCategories = [
   {
@@ -73,13 +74,18 @@ export default function Skills() {
       </div>
 
       <div className="max-w-6xl mx-auto">
-        <div
-          className={`transition-all duration-1000 ease-out ${
-            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-          }`}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
         >
           {/* Section Header */}
-          <div className="text-center mb-16">
+          <motion.div
+            className="text-center mb-16"
+            initial={{ opacity: 0, y: 10 }}
+            animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+          >
             <span className="inline-block px-4 py-2 rounded-full glass text-sm font-medium text-purple-600 dark:text-purple-400 mb-4">
               Skills & Technologies
             </span>
@@ -87,22 +93,18 @@ export default function Skills() {
               What I Work With
             </h2>
             <div className="w-24 h-1 bg-gradient-to-r from-purple-600 to-blue-600 rounded-full mx-auto" />
-          </div>
+          </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {skillCategories.map((category, index) => {
               const Icon = category.icon;
               return (
-                <div
+                <motion.div
                   key={index}
-                  className={`group p-6 rounded-2xl glass border border-border/50 hover:border-transparent transition-all duration-500 modern-card ${
-                    isVisible
-                      ? "opacity-100 translate-y-0"
-                      : "opacity-0 translate-y-10"
-                  }`}
-                  style={{
-                    transitionDelay: isVisible ? `${index * 150}ms` : "0ms",
-                  }}
+                  className="group p-6 rounded-2xl glass border border-border/50 hover:border-transparent transition-all duration-500 modern-card"
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+                  transition={{ duration: 0.6, delay: index * 0.15, ease: "easeOut" }}
                 >
                   {/* Header */}
                   <div className="flex items-center gap-4 mb-6">
@@ -117,21 +119,15 @@ export default function Skills() {
                   {/* Skills */}
                   <div className="flex flex-wrap gap-3">
                     {category.skills.map((skill, skillIndex) => (
-                      <span
+                      <motion.span
                         key={skill}
-                        className={`px-4 py-2.5 rounded-lg bg-background/50 border border-border/50 group-hover:border-transparent group-hover:bg-gradient-to-r ${category.color} group-hover:text-white transition-all duration-300 text-sm font-medium text-foreground cursor-default ${
-                          isVisible
-                            ? "opacity-100 scale-100"
-                            : "opacity-0 scale-90"
-                        }`}
-                        style={{
-                          transitionDelay: isVisible
-                            ? `${index * 150 + skillIndex * 50}ms`
-                            : "0ms",
-                        }}
+                        className={`px-4 py-2.5 rounded-lg bg-background/50 border border-border/50 group-hover:border-transparent group-hover:bg-gradient-to-r ${category.color} group-hover:text-white transition-all duration-300 text-sm font-medium text-foreground cursor-default`}
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={isVisible ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
+                        transition={{ duration: 0.5, delay: index * 0.15 + skillIndex * 0.05, ease: "easeOut" }}
                       >
                         {skill}
-                      </span>
+                      </motion.span>
                     ))}
                   </div>
 
@@ -139,11 +135,11 @@ export default function Skills() {
                   <div
                     className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${category.color} opacity-0 group-hover:opacity-5 transition-opacity duration-500 -z-10`}
                   />
-                </div>
+                </motion.div>
               );
             })}
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Menu, X, Moon, Sun } from "lucide-react";
 
 export default function Navigation() {
@@ -13,9 +14,11 @@ export default function Navigation() {
   // Initialize dark mode from localStorage or system preference
   useEffect(() => {
     const stored = localStorage.getItem("theme");
-    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    const prefersDark = window.matchMedia(
+      "(prefers-color-scheme: dark)",
+    ).matches;
     const isDark = stored ? stored === "dark" : prefersDark;
-    
+
     setDarkMode(isDark);
     if (isDark) {
       document.documentElement.classList.add("dark");
@@ -28,7 +31,7 @@ export default function Navigation() {
   const toggleDarkMode = () => {
     const newDarkMode = !darkMode;
     setDarkMode(newDarkMode);
-    
+
     if (newDarkMode) {
       document.documentElement.classList.add("dark");
       localStorage.setItem("theme", "dark");
@@ -41,7 +44,7 @@ export default function Navigation() {
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
-      
+
       // Update active section based on scroll position
       const sections = ["about", "skills", "projects", "contact"];
       const current = sections.find((section) => {
@@ -80,9 +83,15 @@ export default function Navigation() {
           {/* Logo */}
           <Link
             href="/"
-            className="group text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent hover:scale-110 transition-transform duration-300"
+            className="group hover:scale-110 transition-transform duration-300"
           >
-            <span className="group-hover:animate-pulse">&lt;Dev /&gt;</span>
+            <Image
+              src="/nr-logo.png"
+              alt="NR Logo"
+              width={40}
+              height={40}
+              className="group-hover:animate-pulse"
+            />
           </Link>
 
           {/* Desktop Navigation */}

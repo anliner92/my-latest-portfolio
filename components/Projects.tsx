@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { ExternalLink, Github, ArrowUpRight } from "lucide-react";
 import Link from "next/link";
+import { motion } from "motion/react";
 
 const projects = [
   {
@@ -68,13 +69,18 @@ export default function Projects() {
       </div>
 
       <div className="max-w-7xl mx-auto">
-        <div
-          className={`transition-all duration-1000 ease-out ${
-            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-          }`}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
         >
           {/* Section Header */}
-          <div className="text-center mb-16">
+          <motion.div
+            className="text-center mb-16"
+            initial={{ opacity: 0, y: 10 }}
+            animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+          >
             <span className="inline-block px-4 py-2 rounded-full glass text-sm font-medium text-cyan-600 dark:text-cyan-400 mb-4">
               Featured Projects
             </span>
@@ -82,20 +88,16 @@ export default function Projects() {
               My Recent Work
             </h2>
             <div className="w-24 h-1 bg-gradient-to-r from-cyan-600 to-purple-600 rounded-full mx-auto" />
-          </div>
+          </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {projects.map((project, index) => (
-              <div
+              <motion.div
                 key={index}
-                className={`group relative modern-card ${
-                  isVisible
-                    ? "opacity-100 translate-y-0"
-                    : "opacity-0 translate-y-10"
-                }`}
-                style={{
-                  transitionDelay: isVisible ? `${index * 150}ms` : "0ms",
-                }}
+                className="group relative modern-card"
+                initial={{ opacity: 0, y: 30 }}
+                animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+                transition={{ duration: 0.6, delay: index * 0.15, ease: "easeOut" }}
               >
                 {/* Card */}
                 <div className="relative h-full rounded-2xl overflow-hidden glass border border-border/50 hover:border-transparent transition-all duration-500">
@@ -126,21 +128,15 @@ export default function Projects() {
                     {/* Tags */}
                     <div className="flex flex-wrap gap-2 mb-6">
                       {project.tags.map((tag, tagIndex) => (
-                        <span
+                        <motion.span
                           key={tag}
-                          className={`px-3 py-1.5 rounded-lg text-xs font-medium bg-background/50 border border-border/50 group-hover:border-transparent group-hover:bg-gradient-to-r ${project.gradient} group-hover:text-white transition-all duration-300 text-foreground ${
-                            isVisible
-                              ? "opacity-100 scale-100"
-                              : "opacity-0 scale-90"
-                          }`}
-                          style={{
-                            transitionDelay: isVisible
-                              ? `${index * 150 + tagIndex * 50}ms`
-                              : "0ms",
-                          }}
+                          className={`px-3 py-1.5 rounded-lg text-xs font-medium bg-background/50 border border-border/50 group-hover:border-transparent group-hover:bg-gradient-to-r ${project.gradient} group-hover:text-white transition-all duration-300 text-foreground`}
+                          initial={{ opacity: 0, scale: 0.8 }}
+                          animate={isVisible ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
+                          transition={{ duration: 0.5, delay: index * 0.15 + tagIndex * 0.05, ease: "easeOut" }}
                         >
                           {tag}
-                        </span>
+                        </motion.span>
                       ))}
                     </div>
 
@@ -168,10 +164,10 @@ export default function Projects() {
                     className={`absolute inset-0 bg-gradient-to-br ${project.gradient} opacity-0 group-hover:opacity-5 transition-opacity duration-500 -z-10 rounded-2xl`}
                   />
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

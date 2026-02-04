@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Mail, Linkedin, Github, Twitter, Send, Star } from "lucide-react";
 import Link from "next/link";
+import { motion } from "motion/react";
 
 export default function Contact() {
   const ref = useRef<HTMLElement>(null);
@@ -69,13 +70,18 @@ export default function Contact() {
       </div>
 
       <div className="max-w-5xl mx-auto">
-        <div
-          className={`transition-all duration-1000 ease-out ${
-            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-          }`}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
         >
           {/* Section Header */}
-          <div className="text-center mb-16">
+          <motion.div
+            className="text-center mb-16"
+            initial={{ opacity: 0, y: 10 }}
+            animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+          >
             <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass text-sm font-medium text-pink-600 dark:text-pink-400 mb-4">
               <Star className="w-4 h-4 fill-pink-600 dark:fill-pink-400" />
               Get In Touch
@@ -91,46 +97,48 @@ export default function Contact() {
               I'm always interested in hearing about new projects and
               opportunities. Feel free to reach out!
             </p>
-          </div>
+          </motion.div>
 
           {/* Social Links */}
-          <div className="flex justify-center gap-4 mb-12 flex-wrap">
+          <motion.div
+            className="flex justify-center gap-4 mb-12 flex-wrap"
+            initial={{ opacity: 0, y: 15 }}
+            animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 15 }}
+            transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
+          >
             {socialLinks.map((social, index) => {
               const Icon = social.icon;
               return (
-                <Link
+                <motion.div
                   key={social.label}
-                  href={social.href}
-                  className={`group relative p-5 rounded-2xl glass border border-border/50 hover:border-transparent transition-all duration-300 transform hover:scale-110 hover:-translate-y-2 ${
-                    isVisible
-                      ? "opacity-100 scale-100"
-                      : "opacity-0 scale-90"
-                  }`}
-                  style={{
-                    transitionDelay: isVisible ? `${index * 100}ms` : "0ms",
-                  }}
-                  aria-label={social.label}
+                  initial={{ opacity: 0, y: 10, scale: 0.8 }}
+                  animate={isVisible ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 10, scale: 0.8 }}
+                  transition={{ duration: 0.5, delay: 0.2 + index * 0.1, ease: "easeOut" }}
                 >
-                  <div className={`absolute inset-0 bg-gradient-to-br ${social.color} rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10`} />
-                  <Icon className="w-6 h-6 text-foreground/70 group-hover:text-white transition-colors duration-300" />
-                  <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-gradient-to-r from-transparent via-white to-transparent group-hover:w-full transition-all duration-300" />
-                </Link>
+                  <Link
+                    href={social.href}
+                    className={`group relative p-5 rounded-2xl glass border border-border/50 hover:border-transparent transition-all duration-300 transform hover:scale-110 hover:-translate-y-2`}
+                    aria-label={social.label}
+                  >
+                    <div className={`absolute inset-0 bg-gradient-to-br ${social.color} rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10`} />
+                    <Icon className="w-6 h-6 text-foreground/70 group-hover:text-white transition-colors duration-300" />
+                    <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-gradient-to-r from-transparent via-white to-transparent group-hover:w-full transition-all duration-300" />
+                  </Link>
+                </motion.div>
               );
             })}
-          </div>
+          </motion.div>
 
           {/* CTA Button */}
-          <div className="text-center mb-16">
+          <motion.div
+            className="text-center mb-16"
+            initial={{ opacity: 0, y: 15 }}
+            animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 15 }}
+            transition={{ duration: 0.6, delay: 0.4, ease: "easeOut" }}
+          >
             <Link
               href="mailto:hello@example.com"
-              className={`group inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-pink-600 to-blue-600 text-white rounded-xl font-semibold overflow-hidden transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:shadow-pink-500/50 ${
-                isVisible
-                  ? "opacity-100 translate-y-0"
-                  : "opacity-0 translate-y-5"
-              }`}
-              style={{
-                transitionDelay: isVisible ? "400ms" : "0ms",
-              }}
+              className="group inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-pink-600 to-blue-600 text-white rounded-xl font-semibold overflow-hidden transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:shadow-pink-500/50"
             >
               <span className="relative z-10 flex items-center gap-3">
                 <Send className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
@@ -138,13 +146,14 @@ export default function Contact() {
               </span>
               <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </Link>
-          </div>
+          </motion.div>
 
           {/* Footer */}
-          <div
-            className={`mt-20 pt-8 border-t border-border/50 text-center transition-all duration-1000 delay-500 ${
-              isVisible ? "opacity-100" : "opacity-0"
-            }`}
+          <motion.div
+            className="mt-20 pt-8 border-t border-border/50 text-center"
+            initial={{ opacity: 0 }}
+            animate={isVisible ? { opacity: 1 } : { opacity: 0 }}
+            transition={{ duration: 0.8, delay: 0.5, ease: "easeOut" }}
           >
             <p className="text-foreground/60 text-sm">
               © {new Date().getFullYear()} Frontend Developer. All rights reserved.
@@ -152,8 +161,8 @@ export default function Contact() {
             <p className="text-foreground/40 text-xs mt-2">
               Built with Next.js, TypeScript & Tailwind CSS
             </p>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </div>
     </section>
   );
