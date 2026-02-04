@@ -16,7 +16,7 @@ export default function Contact() {
           setIsVisible(true);
         }
       },
-      { threshold: 0.1 }
+      { threshold: 0.1 },
     );
 
     if (ref.current) {
@@ -27,33 +27,33 @@ export default function Contact() {
   }, []);
 
   const socialLinks = [
-    { 
-      icon: Mail, 
-      href: "mailto:hello@example.com", 
+    {
+      icon: Mail,
+      href: "mailto:hello@example.com",
       label: "Email",
       color: "from-red-500 to-pink-500",
-      hoverColor: "hover:from-red-600 hover:to-pink-600"
+      hoverColor: "hover:from-red-600 hover:to-pink-600",
     },
-    { 
-      icon: Linkedin, 
-      href: "#", 
+    {
+      icon: Linkedin,
+      href: "#",
       label: "LinkedIn",
       color: "from-blue-600 to-blue-700",
-      hoverColor: "hover:from-blue-700 hover:to-blue-800"
+      hoverColor: "hover:from-blue-700 hover:to-blue-800",
     },
-    { 
-      icon: Github, 
-      href: "#", 
+    {
+      icon: Github,
+      href: "#",
       label: "GitHub",
       color: "from-gray-700 to-gray-900",
-      hoverColor: "hover:from-gray-800 hover:to-black"
+      hoverColor: "hover:from-gray-800 hover:to-black",
     },
-    { 
-      icon: Twitter, 
-      href: "#", 
+    {
+      icon: Twitter,
+      href: "#",
       label: "Twitter",
       color: "from-sky-500 to-blue-500",
-      hoverColor: "hover:from-sky-600 hover:to-blue-600"
+      hoverColor: "hover:from-sky-600 hover:to-blue-600",
     },
   ];
 
@@ -66,7 +66,10 @@ export default function Contact() {
       {/* Background decoration */}
       <div className="absolute inset-0 -z-10">
         <div className="absolute top-0 left-1/4 w-96 h-96 bg-pink-500/10 rounded-full blur-3xl animate-orb-float" />
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-orb-float" style={{ animationDelay: "2s" }} />
+        <div
+          className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-orb-float"
+          style={{ animationDelay: "2s" }}
+        />
       </div>
 
       <div className="max-w-5xl mx-auto">
@@ -112,17 +115,29 @@ export default function Contact() {
                 <motion.div
                   key={social.label}
                   initial={{ opacity: 0, y: 10, scale: 0.8 }}
-                  animate={isVisible ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 10, scale: 0.8 }}
-                  transition={{ duration: 0.5, delay: 0.2 + index * 0.1, ease: "easeOut" }}
+                  animate={
+                    isVisible
+                      ? { opacity: 1, y: 0, scale: 1 }
+                      : { opacity: 0, y: 10, scale: 0.8 }
+                  }
+                  transition={{
+                    duration: 0.5,
+                    delay: 0.2 + index * 0.1,
+                    ease: "easeOut",
+                  }}
                 >
                   <Link
                     href={social.href}
-                    className={`group relative p-5 rounded-2xl glass border border-border/50 hover:border-transparent transition-all duration-300 transform hover:scale-110 hover:-translate-y-2`}
+                    className="group relative w-16 h-16 flex items-center justify-center rounded-full glass border border-border/50 hover:border-transparent transition-all duration-300 transform hover:scale-110 hover:-translate-y-2"
                     aria-label={social.label}
                   >
-                    <div className={`absolute inset-0 bg-gradient-to-br ${social.color} rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10`} />
-                    <Icon className="w-6 h-6 text-foreground/70 group-hover:text-white transition-colors duration-300" />
-                    <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-gradient-to-r from-transparent via-white to-transparent group-hover:w-full transition-all duration-300" />
+                    <div
+                      className={`absolute inset-0 bg-gradient-to-br ${social.color} rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-md group-hover:blur-0`}
+                    />
+                    <div
+                      className={`absolute inset-0 bg-gradient-to-br ${social.color} rounded-full opacity-0 group-hover:opacity-20 transition-opacity duration-300`}
+                    />
+                    <Icon className="w-6 h-6 text-foreground/70 group-hover:text-white transition-colors duration-300 relative z-10" />
                   </Link>
                 </motion.div>
               );
@@ -156,7 +171,8 @@ export default function Contact() {
             transition={{ duration: 0.8, delay: 0.5, ease: "easeOut" }}
           >
             <p className="text-foreground/60 text-sm">
-              © {new Date().getFullYear()} Frontend Developer. All rights reserved.
+              © {new Date().getFullYear()} Frontend Developer. All rights
+              reserved.
             </p>
             <p className="text-foreground/40 text-xs mt-2">
               Built with Next.js, TypeScript & Tailwind CSS

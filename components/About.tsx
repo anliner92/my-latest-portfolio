@@ -102,8 +102,8 @@ export default function About() {
                       transition={{ duration: 0.6, delay: 0.3 + index * 0.1, ease: "easeOut" }}
                     >
                       <div className="flex items-center gap-4">
-                        <div className="p-3 rounded-lg bg-gradient-to-br from-blue-500/20 to-purple-500/20 group-hover:scale-110 transition-transform duration-300">
-                          <Icon className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+                        <div className="p-3 rounded-lg bg-gradient-to-br from-blue-500/20 to-purple-500/20 group-hover:from-blue-500/40 group-hover:to-purple-500/40 group-hover:scale-110 transition-all duration-300">
+                          <Icon className="w-5 h-5 text-blue-600 dark:text-blue-400 group-hover:scale-125 group-hover:rotate-12 transition-transform duration-300" />
                         </div>
                         <div>
                           <p className="text-sm text-foreground/60 font-medium">
